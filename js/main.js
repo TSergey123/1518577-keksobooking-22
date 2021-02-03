@@ -1,12 +1,18 @@
-function randomInteger(min, max) {
-  let rand = min + Math.random() * (max + 1 - min);
-  return Math.floor(rand);
+function getRandomInteger(min, max) {
+  let randInt = min + Math.random() * (max + 1 - min);
+  if(min>max){
+    return 'Минимальное значение должно быть меньше максимального';
+  }
+  return Math.floor(randInt);
 }
 
-function randomFloat(min, max, comma) {
-  let randFloat = min + Math.random() * (max + 1 - min);
-  return parseFloat(randFloat.toFixed(comma));
+function getRandomFloat(min, max, commas) {
+  let randFloat = (Math.random() * (max - min) + min).toFixed(commas);
+  if(min>max){
+    return 'Минимальное значение должно быть меньше максимального';
+  }
+  return randFloat;
 }
 
-randomInteger(1, 100);
-randomFloat(1, 100, 2);
+getRandomFloat(1.1, 1.2, 1);
+getRandomInteger(1, 100);
