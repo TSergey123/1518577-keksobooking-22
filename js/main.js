@@ -26,34 +26,34 @@ getRandomInteger(1, 100);
 function getRandomArrayElement(elements){
   return elements[getRandomInteger(0, elements.length - 1)];
 }
+const TITLES = ['Квартира', 'Аппартаменты', 'Лофт', 'Студия'];
+const TYPES = ['palace', 'flat', 'house', 'bungalow'];
+const CHECKS = ['12:00', '13:00', '14:00'];
+const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const DESCRIPTIONS = ['Description'];
+const PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
 let author = {
   avatar: 'img/avatars/user0' + getRandomInteger(1, 8) + '.png',
 }
 
-// let rooms = getRandomInteger(1, 999);
 let offer = {
-  title: 'qwe',
-  address: '{{location.x}} {{location.y}',
-  price: '123',
-  type: 'palace',
-  rooms: 10,
-  guests: 10,
-  checkin: '13:00',
-  checkout: '12:00',
-  features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-  description: 'qqq',
-  photos: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'],
+  title: getRandomArrayElement(TITLES),
+  address: location.x + ', ' + location.y,
+  price: getRandomInteger(1,100),
+  type: getRandomArrayElement(TYPES),
+  rooms: getRandomInteger(1,100),
+  guests: getRandomInteger(1,100),
+  checkin: getRandomArrayElement(CHECKS),
+  checkout: getRandomArrayElement(CHECKS),
+  features: getRandomArrayElement(FEATURES),
+  description: getRandomArrayElement(DESCRIPTIONS),
+  photos: getRandomArrayElement(PHOTOS),
 }
 
-const PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-const createPhoto = () => {
-  return{
-    photo: getRandomArrayElement(PHOTOS),
-  };
-};
+let location = {
+  x: getRandomFloat(35.65000, 35.70000, 5),
+  y: getRandomFloat(139.70000, 139.80000, 5),
+}
 
-// console.log(createPhoto);
-// console.log(author);
-// console.log(getRandomArrayElement(PHOTOS));
-
+Object.assign({}, author, offer, location);
