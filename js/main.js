@@ -33,7 +33,6 @@ const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'condit
 const DESCRIPTIONS = ['Близко к метро', 'Рядом с парком', 'Спальный район'];
 const PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 const PUBLICATION_LENGTH = 10;
-const ADDRESS = location.x + ', ' + location.y;
 
 
 const createPublication = () => {
@@ -47,14 +46,9 @@ const createPublication = () => {
       avatar: 'img/avatars/user0' + getRandomInteger(1, 8) + '.png',
     },
 
-    location: {
-      x: getRandomFloat(35.65000, 35.70000, 5),
-      y: getRandomFloat(139.70000, 139.80000, 5),
-    },
-
     offer: {
       title: getRandomArrayElement(TITLES),
-      address: location,
+      address: location.x + ', ' + location.y,
       price: getRandomInteger(1,100),
       type: getRandomArrayElement(TYPES),
       rooms: getRandomInteger(1,100),
@@ -64,7 +58,6 @@ const createPublication = () => {
       features: getRandomArrayElement(FEATURES),
       description: getRandomArrayElement(DESCRIPTIONS),
       photos: getRandomArrayElement(PHOTOS),
-      qwerty: ADDRESS,
     },
   }
 };
