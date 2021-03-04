@@ -18,9 +18,9 @@ const createPublication = () => {
       guests: getRandomInteger(1,10),
       checkin: getRandomArrayElement(CHECKS),
       checkout: getRandomArrayElement(CHECKS),
-      features: getRandomArrayElement(FEATURES),
+      features: FEATURES,
       description: getRandomArrayElement(DESCRIPTIONS),
-      photos: getRandomArrayElement(PHOTOS),
+      photos: PHOTOS,
     },
   }
 };
