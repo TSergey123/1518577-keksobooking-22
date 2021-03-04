@@ -1,4 +1,4 @@
-import { createPublication } from './create-publication.js';
+import {getRandomFloat} from './util.js';
 
 const TITLES = ['Квартира', 'Аппартаменты', 'Лофт', 'Студия'];
 const TYPES = ['palace', 'flat', 'house', 'bungalow'];
@@ -8,9 +8,10 @@ const DESCRIPTIONS = ['Близко к метро', 'Рядом с парком'
 const PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 const PUBLICATION_LENGTH = 10;
 
+const location = {
+  x: getRandomFloat(35.65000, 35.70000, 5),
+  y: getRandomFloat(139.70000, 139.80000, 5),
+}
 
-const newArray = new Array(PUBLICATION_LENGTH).fill(null).map(() => createPublication());
-newArray
-
-export {TITLES, TYPES, CHECKS, FEATURES, DESCRIPTIONS, PHOTOS};
+export {TITLES, TYPES, CHECKS, FEATURES, DESCRIPTIONS, PHOTOS, PUBLICATION_LENGTH, location};
 

@@ -28,3 +28,11 @@ function getRandomArrayElement(elements){
 }
 export {getRandomArrayElement};
 
+const getRandomArraySlice = (array) => {
+  getRandomArrayElement(array);
+  return array.slice(getRandomInteger(0, array.length - 1));
+};
+
+export {getRandomArraySlice}
+
+
