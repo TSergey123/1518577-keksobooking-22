@@ -2,6 +2,50 @@ const type = document.querySelector('#type');
 const price = document.querySelector('#price');
 const timeIn = document.querySelector('#timein');
 const timeOut = document.querySelector('#timeout');
+const form = document.querySelector('.ad-form')
+const formFieldset = form.querySelectorAll('fieldset');
+const mapFilters = document.querySelector('.map__filters');
+const mapFiltersSelect = mapFilters.querySelectorAll('select');
+const mapFiltersFieldset = mapFilters.querySelectorAll('fieldset');
+
+
+const disableForm = () => {
+  form.classList.add('ad-form--disabled');
+  mapFilters.classList.add('ad-form--disabled');
+
+  mapFiltersFieldset.forEach(function(item){
+    item.setAttribute('disabled', true);
+  });
+
+  mapFiltersSelect.forEach(function(item){
+    item.setAttribute('disabled', true);
+  });
+
+  formFieldset.forEach(function (item) {
+    item.setAttribute('disabled', true);
+  });
+}
+disableForm();
+
+const activateForm = () => {
+  form.classList.remove('ad-form--disabled');
+  mapFilters.classList.remove('ad-form--disabled');
+
+  mapFiltersFieldset.forEach(function(item){
+    item.removeAttribute('disabled', true);
+  });
+
+  mapFiltersSelect.forEach(function(item){
+    item.removeAttribute('disabled', true);
+  });
+
+  formFieldset.forEach(function (item) {
+    item.removeAttribute('disabled', true);
+  });
+}
+
+activateForm();
+
 
 
 const typePrice = {
@@ -12,7 +56,7 @@ const typePrice = {
 }
 
 const chooseTime = (evt) => {
-  timeIn.value = evt.target.value,
+  timeIn.value = evt.target.value
   timeOut.value = evt.target.value
 }
 timeOut.addEventListener('click', chooseTime);

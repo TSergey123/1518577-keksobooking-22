@@ -49,4 +49,4 @@ cardElement.querySelector('.popup__text--time').textContent = 'Заезд пос
 cardElement.querySelector('.popup__description').textContent = similarPub.offer.description;
 cardElement.querySelector('.popup__avatar').src = similarPub.author.avatar;
 
-canvas.append(cardElement);
+// canvas.append(cardElement);

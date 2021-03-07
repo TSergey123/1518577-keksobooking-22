@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
   <title>Кексобукинг</title>
 </head>
 <body>
@@ -19,7 +20,15 @@
     <section class="map">
 
       <!-- Блок для вставки карты -->
-      <div class="map__canvas" id="map-canvas"></div>
+      <div class="map__canvas" id="map-canvas">
+        <div id="map" style="width:100%; height:500px;"></div>
+        <template id="balloon">
+          <section class="balloon">
+            <h3 class="balloon__title">Остров сокровищ</h3>
+            <p class="balloon__lat-lng">Координаты: 12.34567, 98.76543</p>
+          </section>
+        </template>
+      </div>
 
       <!-- Фильтрация объявлений -->
       <div class="map__filters-container">
@@ -228,5 +237,9 @@
     </div>
   </template>
 <script type="module" src="js/main.js"></script>
+<!-- <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script> -->
+    <script src='leaflet/leaflet.js'></script>
 </body>
 </html>
