@@ -1,4 +1,7 @@
 /* global L:readonly */
+import {cardElement} from './popup.js';
+import {address} from './form.js';
+
 const map = L.map('map')
   .setView({
     lat: 35.68074835749536,
@@ -13,21 +16,21 @@ L.tileLayer(
 ).addTo(map);
 
 const points = [
-  {
-    title: 'Футура',
-    lat: 35.68074835749536,
-    lng: 139.7693276902296,
-  },
-  {
-    title: 'Шаверма',
-    lat: 35.68967182797921,
-    lng: 139.76812606061316,
-  },
-  {
-    title: 'Франк',
-    lat: 35.66331682598815,
-    lng: 139.75542311895353,
-  },
+  // {
+  //   title: 'Футура',
+  //   lat: 35.68074835749536,
+  //   lng: 139.7693276902296,
+  // },
+  // {
+  //   title: 'Шаверма',
+  //   lat: 35.68967182797921,
+  //   lng: 139.76812606061316,
+  // },
+  // {
+  //   title: 'Франк',
+  //   lat: 35.66331682598815,
+  //   lng: 139.75542311895353,
+  // },
   {
 
     title: 'Ginza',
@@ -39,18 +42,46 @@ const points = [
 const createCustomPopup = (point) => {
   const balloonTemplate = document.querySelector('#balloon').content.querySelector('.balloon');
   const popupElement = balloonTemplate.cloneNode(true);
+  // const customLoc = `${point.lat.toFixed(5)}, ${point.lng.toFixed(5)}`;
+  // popupElement.querySelector('.balloon__title').textContent = point.title;
+  // popupElement.querySelector('.balloon__lat-lng').textContent = `${point.lat}, ${point.lng}`;
+  // popupElement.querySelector('.balloon__lat-lng').textContent = customLoc;
 
-  popupElement.querySelector('.balloon__title').textContent = point.title;
-  popupElement.querySelector('.balloon__lat-lng').textContent = `Координаты: ${point.lat}, ${point.lng}`;
+  popupElement.querySelector('.balloon__lat-lng').append(cardElement);
 
   return popupElement;
 };
+
+const mainPinIcon = L.icon({
+  iconUrl: 'img/main-pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+});
+
+const mainPinMarker = L.marker(
+  {
+    lat: 35.68325818445154,
+    lng: 139.75387816658954,
+  },
+  {
+    draggable: true,
+    icon: mainPinIcon,
+  },
+);
+
+mainPinMarker.addTo(map);
+
+mainPinMarker.on('moveend', (evt) => {
+  const showLoc = evt.target.getLatLng();
+  const parseLoc = showLoc.toString().replace(/[a-zA-Z-()]+/g, '');
+  address.value = parseLoc;
+});
 
 points.forEach((point) => {
   const {lat, lng} = point;
 
   const icon = L.icon({
-    iconUrl: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
+    iconUrl: 'img/pin.svg',
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });
@@ -65,25 +96,6 @@ points.forEach((point) => {
     },
   );
 
-  const mainPinIcon = L.icon({
-    iconUrl: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg',
-    iconSize: [52, 52],
-    iconAnchor: [26, 52],
-  });
-
-  const mainPinMarker = L.marker(
-    {
-      lat: 35.68325818445154,
-      lng: 139.75387816658954,
-    },
-    {
-      draggable: true,
-      icon: mainPinIcon,
-    },
-  );
-
-  mainPinMarker.addTo(map);
-
   marker
     .addTo(map)
     .bindPopup(
@@ -93,3 +105,5 @@ points.forEach((point) => {
       },
     );
 });
+
+export {createCustomPopup};

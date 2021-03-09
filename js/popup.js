@@ -50,3 +50,5 @@ cardElement.querySelector('.popup__description').textContent = similarPub.offer.
 cardElement.querySelector('.popup__avatar').src = similarPub.author.avatar;
 
 // canvas.append(cardElement);
+
+export{cardElement, similarPub}
