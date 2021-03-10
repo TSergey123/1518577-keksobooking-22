@@ -11,7 +11,6 @@ const createPublication = () => {
 
     offer: {
       title: getRandomArrayElement(TITLES),
-      // address: createCustomPopup.customLoc,
       address: location.x + ', ' + location.y,
       price: getRandomInteger(1,10000),
       type: getRandomArrayElement(TYPES),
@@ -27,6 +26,5 @@ const createPublication = () => {
 };
 
 const similarOffer = new Array(PUBLICATION_LENGTH).fill(null).map(() => createPublication());
-similarOffer;
 
 export{similarOffer ,createPublication};

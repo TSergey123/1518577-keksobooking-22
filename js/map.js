@@ -1,6 +1,9 @@
 /* global L:readonly */
 import {cardElement} from './popup.js';
 import {address} from './form.js';
+import {similarOffer,createPublication} from './create-publication.js';
+
+const pub = createPublication();
 
 const map = L.map('map')
   .setView({
@@ -16,39 +19,19 @@ L.tileLayer(
 ).addTo(map);
 
 const points = [
-  // {
-  //   title: 'Футура',
-  //   lat: 35.68074835749536,
-  //   lng: 139.7693276902296,
-  // },
-  // {
-  //   title: 'Шаверма',
-  //   lat: 35.68967182797921,
-  //   lng: 139.76812606061316,
-  // },
-  // {
-  //   title: 'Франк',
-  //   lat: 35.66331682598815,
-  //   lng: 139.75542311895353,
-  // },
   {
-
     title: 'Ginza',
     lat: 35.677262355752454,
+    // lat: pub.offer.address.location.x,
     lng: 139.78065734089898,
+    // lng: pub.offer.address.location.y,
   },
 ];
 
 const createCustomPopup = (point) => {
   const balloonTemplate = document.querySelector('#balloon').content.querySelector('.balloon');
   const popupElement = balloonTemplate.cloneNode(true);
-  // const customLoc = `${point.lat.toFixed(5)}, ${point.lng.toFixed(5)}`;
-  // popupElement.querySelector('.balloon__title').textContent = point.title;
-  // popupElement.querySelector('.balloon__lat-lng').textContent = `${point.lat}, ${point.lng}`;
-  // popupElement.querySelector('.balloon__lat-lng').textContent = customLoc;
-
   popupElement.querySelector('.balloon__lat-lng').append(cardElement);
-
   return popupElement;
 };
 
@@ -71,14 +54,24 @@ const mainPinMarker = L.marker(
 
 mainPinMarker.addTo(map);
 
-mainPinMarker.on('moveend', (evt) => {
-  const showLoc = evt.target.getLatLng();
-  const parseLoc = showLoc.toString().replace(/[a-zA-Z-()]+/g, '');
-  address.value = parseLoc;
+// mainPinMarker.on('moveend', (evt) => {
+//   const showLoc = evt.target.getLatLng();
+//   const parseLoc = showLoc.toString().replace(/[a-zA-Z-()]+/g, '');
+//   address.value = parseLoc;
+// });
+
+mainPinMarker.on('moveend', function (evt) {
+  address.value = evt.target.getLatLng().lat.toFixed(5) + ' ' + evt.target.getLatLng().lng.toFixed(5);
 });
 
-points.forEach((point) => {
-  const {lat, lng} = point;
+// similarOffer.forEach(function(createOffer){
+//   const lat = pub.location.x;
+//   const lng = pub.location.y;
+// });
+
+similarOffer.forEach((createOffer) => {
+  const lat = pub.location.x;
+  const lng = pub.location.y;
 
   const icon = L.icon({
     iconUrl: 'img/pin.svg',
@@ -99,11 +92,15 @@ points.forEach((point) => {
   marker
     .addTo(map)
     .bindPopup(
-      createCustomPopup(point),
+      createCustomPopup(createOffer),
       {
         keepInView: true,
       },
     );
 });
+
+const createPin = (pinData) => {
+  
+}
 
 export {createCustomPopup};
