@@ -1,5 +1,5 @@
 /* global L:readonly */
-import {cardElement} from './popup.js';
+import {cardElement,createSimilarPopup} from './popup.js';
 import {address} from './form.js';
 import {similarOffer,createPublication} from './create-publication.js';
 
@@ -28,7 +28,7 @@ const points = [
   },
 ];
 
-const createCustomPopup = (point) => {
+const createCustomPopup = () => {
   const balloonTemplate = document.querySelector('#balloon').content.querySelector('.balloon');
   const popupElement = balloonTemplate.cloneNode(true);
   popupElement.querySelector('.balloon__lat-lng').append(cardElement);
@@ -70,8 +70,8 @@ mainPinMarker.on('moveend', function (evt) {
 // });
 
 similarOffer.forEach((createOffer) => {
-  const lat = pub.location.x;
-  const lng = pub.location.y;
+  const lat = createOffer.location.x;
+  const lng = createOffer.location.y;
 
   const icon = L.icon({
     iconUrl: 'img/pin.svg',
@@ -92,7 +92,7 @@ similarOffer.forEach((createOffer) => {
   marker
     .addTo(map)
     .bindPopup(
-      createCustomPopup(createOffer),
+      createSimilarPopup(createOffer),
       {
         keepInView: true,
       },

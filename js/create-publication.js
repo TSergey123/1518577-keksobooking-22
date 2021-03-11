@@ -1,9 +1,12 @@
-import {getRandomArrayElement, getRandomInteger} from './util.js';
+import {getRandomArrayElement, getRandomInteger, getRandomFloat} from './util.js';
 import {TITLES,TYPES,CHECKS, FEATURES, DESCRIPTIONS, PHOTOS, PUBLICATION_LENGTH, location} from './data.js';
 
 const createPublication = () => {
   return {
-    location,
+    location: {
+      x: getRandomFloat(35.65000, 35.70000, 5),
+      y: getRandomFloat(139.70000, 139.80000, 5),
+    },
 
     author: {
       avatar: 'img/avatars/user0' + getRandomInteger(1, 8) + '.png',
