@@ -31,7 +31,7 @@ const disableForm = () => {
     item.setAttribute('disabled', true);
   });
 }
-disableForm();
+export{disableForm};
 
 const activateForm = () => {
   form.classList.remove('ad-form--disabled');
@@ -50,7 +50,7 @@ const activateForm = () => {
   });
 }
 
-activateForm();
+export{activateForm};
 
 // const typeCapacity = {
 //   100: '<option value="0">не для гостей</option>',
@@ -62,6 +62,8 @@ activateForm();
 //   roomCapacity.innerHTML = typeCapacity[roomNumber.value];
 // }
 // roomNumber.addEventListener('click', chooseRoom);
+
+
 
 const roomValidation = () => {
 if (roomNumber.selectedIndex === 0) {
@@ -100,130 +102,34 @@ roomNumber.addEventListener('change', () => {
   roomCapacity.reportValidity();
 });
 }
-
 roomValidation();
 
 
-// for (let index = 0; index < 4; index++) {
-//   // const element = ;
-//   console.log('qwerty' + index)
-  
-// }
 
-// const roomValidation = () => {
-//   const roomValue = roomNumber.value;
-//   const capacityValue = roomCapacity.value
 
-//   if(roomValue < capacityValue )
-//   {
-//     for (let index = roomCapacity.options.length - 1; index > roomValue; index++) {
-//       roomCapacity.options[index].disabled = true;
-//     }
-//   }
-// }
 
+
+// const MAX_VAL = 100;
+// const roomInt = Number(roomNumber.value)
 // roomNumber.addEventListener('click', () => {
-//   const roomValue = roomNumber.value;
-//   const capacityValue = roomCapacity.value
-//   if(roomValue > capacityValue )
-//   {
-//     for (let index = roomCapacity.options.length - 1; index <= roomValue; index--) {
-//       roomCapacity.options[index].disabled = true;
-//     }
-//   }
-// });
-
-// let capVal = roomCapacity.value;
-// let roomVal = roomNumber.value
-// const roomInd = roomNumber.selectedIndex;
-// const capInd = roomCapacity.selectedIndex;
-// console.log(capVal);
-// console.log(roomVal);
-
-// roomNumber.addEventListener('click', () => {
-// if (roomNumber.value >= roomCapacity.value) {
-//     roomCapacity.options[roomCapacity.value].disabled = true;
-// }
-// });
-
-
-
-
-// const ARR = [roomCapacity.value];
-
-// for (let index = roomCapacity.options.length -1; index >= 0; index--) {
-//   console.log(roomCapacity.option[index])
-// }   
-
-// roomNumber.addEventListener('click', () => {
-//   for (let i = 0; i < roomCapacity.options.length; i++)
-//   {
-//       if (roomCapacity.options[i].selected){
-//         roomCapacity.option[i].disabled = true;
-//       } 
-//   }
-// });
-
-
-
-// roomNumber.addEventListener('change', () => {
-//   if (roomNumber.value = 100) {
+//   if (roomInt === MAX_VAL) {
 //     roomCapacity.selectedIndex = 0;
 //     optionCapacity.forEach((option) => {
-//       option.disabled = option.value > roomCapacity.selectedIndex;
+//       const optInt = Number(option.value);
+//       option.disabled = optInt > roomCapacity.selectedIndex;
 //     });
 //   } else {
-//     roomCapacity.selectedIndex = roomNumber.value;
+//     roomCapacity.selectedIndex = roomInt;
 //     optionCapacity.forEach((option, index) => {
-//       option.disabled = index === 0 || option.value > roomNumber.value;
+//       const optInt = Number(option.value);
+//       option.disabled = index === 0 || optInt > roomInt;
 //     });
 //   }
 // });
 
-// roomNumber.addEventListener('change', () => {
-//   const roomValue = roomNumber.value;
-//   const capacityValue = roomCapacity.value
-//   if(roomValue < capacityValue )
-//   {
-//     for (let index = roomCapacity.options.length - 1; index >= roomValue; index--) {
-//       // roomCapacity.options[index].disabled = false;
-//       roomCapacity.options[index].disabled = true;
-//     }
-//   }
-// });
 
 
-// roomNumber.addEventListener('change', () => {
-//   const roomValue = roomNumber.value;
-//   const capacityValue = roomCapacity.value
-//   // const extraValue = option.disabled = option.value > roomCapacity.selectedIndex;
-
-//   if(roomValue > capacityValue )
-//   {
-//     // for (let index = roomCapacity.options.length - 1; index <= roomValue; index--) {
-//       // roomCapacity.options.disabled = true;
-//       roomCapacity.options[options.value > roomCapacity.selectedIndex].disabled = true;
-//     // }
-//   }
-// });
-
-// roomValidation();
-
-// roomNumber.addEventListener('click', () => {
-//   const roomOpt = roomCapacity.options; 
-//   for (let i = 0; i < 3; i++) {
-//   if (roomNumber.value = 100){
-//       // const element = roomOpt[i];
-//       roomOpt[i].disabled = true;      
-//     };
-//   }
-//   // for (let i = 1; i < 1; i++) {
-//   //   if (roomNumber.value = 3){
-//   //       // const element = roomOpt[i];
-//   //       roomOpt[i].disabled = true;      
-//   //     };
-//   //   }  
-// }); 
+// onRoomCapacityChange();
 
 // Хотел изначальное сделать через disabled.
 // Был вариант сделать так как уже сделал, только перечислить все поля, а ненужным добавить аттрибут disabled.

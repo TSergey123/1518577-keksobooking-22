@@ -1,15 +1,13 @@
-/* global L:readonly */
-import {cardElement,createSimilarPopup} from './popup.js';
-import {address} from './form.js';
-import {similarOffer,createPublication} from './create-publication.js';
+import {createSimilarPopup} from './popup.js';
+import {address, disableForm, activateForm} from './form.js';
+import {similarOffer} from './create-publication.js';
 
-const pub = createPublication();
-
+disableForm();
 const map = L.map('map')
   .setView({
     lat: 35.68074835749536,
     lng: 139.7693276902296,
-  }, 13);
+  }, 12);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -17,23 +15,6 @@ L.tileLayer(
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>',
   },
 ).addTo(map);
-
-const points = [
-  {
-    title: 'Ginza',
-    lat: 35.677262355752454,
-    // lat: pub.offer.address.location.x,
-    lng: 139.78065734089898,
-    // lng: pub.offer.address.location.y,
-  },
-];
-
-const createCustomPopup = () => {
-  const balloonTemplate = document.querySelector('#balloon').content.querySelector('.balloon');
-  const popupElement = balloonTemplate.cloneNode(true);
-  popupElement.querySelector('.balloon__lat-lng').append(cardElement);
-  return popupElement;
-};
 
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
@@ -52,22 +33,16 @@ const mainPinMarker = L.marker(
   },
 );
 
+
 mainPinMarker.addTo(map);
-
-// mainPinMarker.on('moveend', (evt) => {
-//   const showLoc = evt.target.getLatLng();
-//   const parseLoc = showLoc.toString().replace(/[a-zA-Z-()]+/g, '');
-//   address.value = parseLoc;
-// });
-
 mainPinMarker.on('moveend', function (evt) {
   address.value = evt.target.getLatLng().lat.toFixed(5) + ' ' + evt.target.getLatLng().lng.toFixed(5);
 });
 
-// similarOffer.forEach(function(createOffer){
-//   const lat = pub.location.x;
-//   const lng = pub.location.y;
-// });
+mainPinMarker.addEventListener('dragend', () => {
+  activateForm();
+});
+
 
 similarOffer.forEach((createOffer) => {
   const lat = createOffer.location.x;
@@ -98,9 +73,3 @@ similarOffer.forEach((createOffer) => {
       },
     );
 });
-
-const createPin = (pinData) => {
-  
-}
-
-export {createCustomPopup};

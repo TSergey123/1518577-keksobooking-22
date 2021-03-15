@@ -67,22 +67,22 @@ const createPhotos = function (createOffer) {
 
 const createSimilarPopup = (createOffer) => {
   const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-  const cardElement = cardTemplate.cloneNode(true);
-  cardElement.querySelector('.popup__title').textContent = similarPub.offer.title;
-  cardElement.querySelector('.popup__text--address').textContent = similarPub.offer.address;
-  cardElement.querySelector('.popup__text--price').textContent = similarPub.offer.price + '₽/ночь';
-  cardElement.querySelector('.popup__type').textContent = getRuType[similarPub.offer.type];
-  cardElement.querySelector('.popup__text--capacity').textContent = similarPub.offer.rooms + ' комнаты для ' + similarPub.offer.guests + ' гостей';
-  cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + similarPub.offer.checkin + ' выезд до ' + similarPub.offer.checkout;
-  cardElement.querySelector('.popup__description').textContent = similarPub.offer.description;
-  cardElement.querySelector('.popup__avatar').src = similarPub.author.avatar;
-  cardElement.querySelector('.popup__photos').removeChild(cardElement.querySelector('.popup__photo'));
-  cardElement.querySelector('.popup__photos').appendChild(createPhotos(createOffer));
-  cardElement.querySelector('.popup__features').innerHTML = '';
-  cardElement.querySelector('.popup__features').appendChild(createFeatures(createOffer));
 
+    const cardElement = cardTemplate.cloneNode(true);
+    cardElement.querySelector('.popup__title').textContent = createOffer.offer.title;
+    cardElement.querySelector('.popup__text--address').textContent = createOffer.offer.address;
+    cardElement.querySelector('.popup__text--price').textContent = createOffer.offer.price + '₽/ночь';
+    cardElement.querySelector('.popup__type').textContent = getRuType[createOffer.offer.type];
+    cardElement.querySelector('.popup__text--capacity').textContent = createOffer.offer.rooms + ' комнаты для ' + createOffer.offer.guests + ' гостей';
+    cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + createOffer.offer.checkin + ' выезд до ' + createOffer.offer.checkout;
+    cardElement.querySelector('.popup__description').textContent = createOffer.offer.description;
+    cardElement.querySelector('.popup__avatar').src = createOffer.author.avatar;
+    cardElement.querySelector('.popup__photos').removeChild(cardElement.querySelector('.popup__photo'));
+    cardElement.querySelector('.popup__photos').appendChild(createPhotos(createOffer));
+    cardElement.querySelector('.popup__features').innerHTML = '';
+    cardElement.querySelector('.popup__features').appendChild(createFeatures(createOffer));
   return cardElement;
 }
 // canvas.append(cardElement);
 
-export { createSimilarPopup, cardElement, similarPub }
+export {createSimilarPopup, cardElement, similarPub};
