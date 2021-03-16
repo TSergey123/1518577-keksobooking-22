@@ -125,7 +125,7 @@ const initMap = (offers) => {
   ).addTo(map);
 
   mainPin.on('moveend', (evt) => {
-  address.value = evt.target.getLatLng().lat.toFixed(5) + ' ' + evt.target.getLatLng().lng.toFixed(5);
+  address.value = evt.target.getLatLng().lat.toFixed(5) + ', ' + evt.target.getLatLng().lng.toFixed(5);
 });
 
   mainPin.addTo(map);
