@@ -1,6 +1,6 @@
-import { createPublication } from './create-publication.js';
+// import { createPublication } from './create-publication.js';
 
-const similarPub = createPublication();
+// const similarPub = createPublication();
 const canvas = document.querySelector('#map-canvas');
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 const cardElement = cardTemplate.cloneNode(true);
@@ -85,4 +85,4 @@ const createSimilarPopup = (createOffer) => {
 }
 // canvas.append(cardElement);
 
-export {createSimilarPopup, cardElement, similarPub};
+export {createSimilarPopup, cardElement};

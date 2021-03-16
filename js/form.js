@@ -11,7 +11,6 @@ const formFieldset = form.querySelectorAll('fieldset');
 const mapFilters = document.querySelector('.map__filters');
 const mapFiltersSelect = mapFilters.querySelectorAll('select');
 const mapFiltersFieldset = mapFilters.querySelectorAll('fieldset');
-const optionCapacity = roomCapacity.querySelectorAll('option');
 
 export{address}
 

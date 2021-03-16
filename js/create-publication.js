@@ -1,5 +1,5 @@
 import {getRandomArrayElement, getRandomInteger, getRandomFloat} from './util.js';
-import {TITLES,TYPES,CHECKS, FEATURES, DESCRIPTIONS, PHOTOS, PUBLICATION_LENGTH, location} from './data.js';
+import {TITLES,TYPES,CHECKS, FEATURES, DESCRIPTIONS, PHOTOS, PUBLICATION_LENGTH} from './data.js';
 
 const createPublication = () => {
   const xRandomLocation = getRandomFloat(35.65000, 35.70000, 5);
