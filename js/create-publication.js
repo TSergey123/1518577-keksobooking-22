@@ -1,9 +1,14 @@
-import {getRandomArrayElement, getRandomInteger} from './util.js';
+import {getRandomArrayElement, getRandomInteger, getRandomFloat} from './util.js';
 import {TITLES,TYPES,CHECKS, FEATURES, DESCRIPTIONS, PHOTOS, PUBLICATION_LENGTH, location} from './data.js';
 
 const createPublication = () => {
+  const xRandomLocation = getRandomFloat(35.65000, 35.70000, 5);
+  const yRandomLocation = getRandomFloat(139.70000, 139.80000, 5);
   return {
-    location,
+    location: {
+      x: getRandomFloat(35.65000, 35.70000, 5),
+      y: getRandomFloat(139.70000, 139.80000, 5),
+    },
 
     author: {
       avatar: 'img/avatars/user0' + getRandomInteger(1, 8) + '.png',
@@ -11,7 +16,7 @@ const createPublication = () => {
 
     offer: {
       title: getRandomArrayElement(TITLES),
-      address: location.x + ', ' + location.y,
+      address: xRandomLocation + ', ' + yRandomLocation,
       price: getRandomInteger(1,10000),
       type: getRandomArrayElement(TYPES),
       rooms: getRandomInteger(1,10),
@@ -26,6 +31,5 @@ const createPublication = () => {
 };
 
 const similarOffer = new Array(PUBLICATION_LENGTH).fill(null).map(() => createPublication());
-similarOffer;
 
 export{similarOffer ,createPublication};
