@@ -76,10 +76,13 @@ import {similarOffer} from './create-publication.js';
 // }); 
 const TOKYO_LAT = 35.712977129360546;
 const TOKYO_LNG = 139.7540842153831;
+const TOKYO_FIXED = TOKYO_LAT.toFixed(5) + ', ' + TOKYO_LNG.toFixed(5);
 const MAIN_ZOOM = 10;
+const resetForm = document.querySelector('.ad-form__reset');
+
 
 const map = window.L.map('map-canvas');
-disableForm()
+// disableForm();
 const createMarker = (lat, lng, draggable, icon) => {
   return window.L.marker({
     lat,
@@ -108,10 +111,11 @@ const createMainPin = (lat, lng) => {
 }
 
 const initMap = (offers) => {
+  disableForm();
   
   map.on('load', () => {
-    activateForm();
     // address.value = `${TOKYO_LAT}, ${TOKYO_LNG}`;
+    address.value = TOKYO_FIXED;
   })
     .setView({
       lat: TOKYO_LAT,
@@ -125,6 +129,7 @@ const initMap = (offers) => {
   ).addTo(map);
 
   mainPin.on('moveend', (evt) => {
+  activateForm();
   address.value = evt.target.getLatLng().lat.toFixed(5) + ', ' + evt.target.getLatLng().lng.toFixed(5);
 });
 
@@ -143,9 +148,13 @@ const resetMainMarker = () => {
 };
 
 const setAddress = () => {
-  address.value = TOKYO_LAT, TOKYO_LNG;
+  address.value = TOKYO_FIXED;
 };
 
 const mainPin = createMainPin(TOKYO_LAT, TOKYO_LNG);
+
+resetForm.addEventListener('click', () => {
+  resetMainMarker();
+});
 
 export {initMap,resetMainMarker, setAddress};

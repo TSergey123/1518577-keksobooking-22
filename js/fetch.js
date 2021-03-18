@@ -4,7 +4,6 @@ const getData = (onSuccss, onError) => {
 fetch('https://22.javascript.pages.academy/keksobooking/data')
   .then((response) => {
       if (response.ok) {
-          console.log(response);
           return response.json();
       }
       showAlert('Не удалось загрузить данные')
