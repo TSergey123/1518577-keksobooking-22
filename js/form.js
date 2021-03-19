@@ -232,7 +232,6 @@ const setUserFormSubmit = () => {
 
         showSuccessMessage();
         resetForm();
-        
       },
       () => showErrorMessage(),
       new FormData(evt.target),
