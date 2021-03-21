@@ -4,3 +4,4 @@ import './map.js';
 import './fetch.js';
 import './backend.js';
 import './image-validation.js';
+import './filter.js';

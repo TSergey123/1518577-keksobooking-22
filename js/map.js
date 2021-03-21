@@ -2,87 +2,13 @@ import {createSimilarPopup} from './popup.js';
 import {address, disableForm, activateForm} from './form.js';
 import {similarOffer} from './create-publication.js';
 
-// const map = L.map('map-canvas');
-
-// disableForm();
-//   map.setView({
-//     lat: 35.68074835749536,
-//     lng: 139.7693276902296,
-//   }, 12);
-
-// L.tileLayer(
-//   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-//   {
-//     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>',
-//   },
-// ).addTo(map);
-
-// const mainPinIcon = L.icon({
-//   iconUrl: 'img/main-pin.svg',
-//   iconSize: [52, 52],
-//   iconAnchor: [26, 52],
-// });
-
-// const mainPinMarker = L.marker(
-//   {
-//     lat: 35.68325818445154,
-//     lng: 139.75387816658954,
-//   },
-//   {
-//     draggable: true,
-//     icon: mainPinIcon,
-//   },
-// );
-
-
-// mainPinMarker.addTo(map);
-// mainPinMarker.on('moveend', function (evt) {
-//   address.value = evt.target.getLatLng().lat.toFixed(5) + ' ' + evt.target.getLatLng().lng.toFixed(5);
-// });
-
-// mainPinMarker.addEventListener('dragend', () => {
-//   activateForm();
-// });
-
-
-// similarOffer.forEach((createOffer) => {
-//   const lat = createOffer.location.x;
-//   const lng = createOffer.location.y;
-
-//   const icon = L.icon({
-//     iconUrl: 'img/pin.svg',
-//     iconSize: [40, 40],
-//     iconAnchor: [20, 40],
-//   });
-
-//   const marker = L.marker(
-//     {
-//       lat,
-//       lng,
-//     },
-//     {
-//       icon,
-//     },
-//   );
-
-//   marker
-//     .addTo(map)
-//     .bindPopup(
-//       createSimilarPopup(createOffer),
-//       {
-//         keepInView: true,
-//       },
-//     );
-// }); 
 const TOKYO_LAT = 35.712977129360546;
 const TOKYO_LNG = 139.7540842153831;
 const TOKYO_FIXED = TOKYO_LAT.toFixed(5) + ', ' + TOKYO_LNG.toFixed(5);
 const MAIN_ZOOM = 10;
 const resetForm = document.querySelector('.ad-form__reset');
 
-
 const map = window.L.map('map-canvas');
-// disableForm();
 const createMarker = (lat, lng, draggable, icon) => {
   return window.L.marker({
     lat,
@@ -114,7 +40,6 @@ const initMap = (offers) => {
   disableForm();
   
   map.on('load', () => {
-    // address.value = `${TOKYO_LAT}, ${TOKYO_LNG}`;
     address.value = TOKYO_FIXED;
   })
     .setView({
@@ -135,11 +60,11 @@ const initMap = (offers) => {
 
   mainPin.addTo(map);
 
-  offers.forEach((offer) => {
-    const pin = createPin(offer.location.lat, offer.location.lng);
-    pin.addTo(map);
-    pin.bindPopup(() => createSimilarPopup(offer));
-  });
+  // offers.forEach((offer) => {
+  //   const pin = createPin(offer.location.lat, offer.location.lng);
+  //   pin.addTo(map);
+  //   pin.bindPopup(() => createSimilarPopup(offer));
+  // });
 }
 
 const resetMainMarker = () => {
@@ -157,4 +82,34 @@ resetForm.addEventListener('click', () => {
   resetMainMarker();
 });
 
-export {initMap,resetMainMarker, setAddress};
+const pinList = [];
+
+const removeMarkers = () => {
+  pinList.forEach((marker) => {
+    marker.remove();
+  });
+}
+
+// const renderMap = (offer) => {
+//   offer.slice(0,10).forEach((offer) => {
+//     const pin = createPin(offer.location.lat, offer.location.lng);
+//     pin.addTo(map);
+//     pin.bindPopUp(() => createSimilarPopup(offer));
+//     pinList.push(pin);
+//   });
+// }
+
+const  renderMap = (offers) => {
+
+  offers.slice(0, 10).forEach((offer) => {
+    const pin = createPin(offer.location.lat, offer.location.lng).addTo(map).bindPopup(() => createSimilarPopup(offer));
+    pinList.push(pin);
+  });
+}
+
+const reRenderMarkers = (offer) => {
+  removeMarkers();
+  renderMap(offer);
+}
+
+export {initMap, resetMainMarker, setAddress, reRenderMarkers, renderMap};
