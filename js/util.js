@@ -36,3 +36,34 @@ const getRandomArraySlice = (array) => {
 export {getRandomArraySlice}
 
 
+const showAlert = (message) => {
+  const ALERT_SHOW_TIME = 5000
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = 100;
+  alertContainer.style.backgroundColor = 'red';
+  alertContainer.style.zIndex = 100;
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = 0;
+  alertContainer.style.right = 0;
+  alertContainer.style.top = '50%';
+  alertContainer.style.marginLeft = 'auto';
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+
+  alertContainer.textContent = message;
+
+  map.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+}
+
+export {showAlert}
+
+const isEscEvent = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+};
+
+export {isEscEvent}

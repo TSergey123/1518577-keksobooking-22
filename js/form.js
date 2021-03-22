@@ -1,3 +1,7 @@
+import { sendData } from "./fetch.js";
+import { showSuccessMessage, showErrorMessage } from "./message.js";
+import {resetMainMarker, setAddress} from "./map.js";
+
 const form = document.querySelector('.ad-form')
 const type = form.querySelector('#type');
 const address = form.querySelector('#address');
@@ -11,21 +15,22 @@ const formFieldset = form.querySelectorAll('fieldset');
 const mapFilters = document.querySelector('.map__filters');
 const mapFiltersSelect = mapFilters.querySelectorAll('select');
 const mapFiltersFieldset = mapFilters.querySelectorAll('fieldset');
-const optionCapacity = roomCapacity.querySelectorAll('option');
+const mainForm = document.querySelector('.ad-form');
+
 
 export{address}
 
 const disableForm = () => {
   form.classList.add('ad-form--disabled');
-  mapFilters.classList.add('ad-form--disabled');
+  // mapFilters.classList.add('ad-form--disabled');
 
-  mapFiltersFieldset.forEach(function(item){
-    item.setAttribute('disabled', true);
-  });
+  // mapFiltersFieldset.forEach(function(item){
+  //   item.setAttribute('disabled', true);
+  // });
 
-  mapFiltersSelect.forEach(function(item){
-    item.setAttribute('disabled', true);
-  });
+  // mapFiltersSelect.forEach(function(item){
+  //   item.setAttribute('disabled', true);
+  // });
 
   formFieldset.forEach(function (item) {
     item.setAttribute('disabled', true);
@@ -206,3 +211,34 @@ price.addEventListener('input', () => {
 
   price.reportValidity();
 });
+
+
+const resetForm = () => {
+  mainForm.reset();
+  mapFilters.reset();
+  resetMainMarker();
+  setAddress();
+}
+
+const formSubmit = document.querySelector('.ad-form__submit');
+const setUserFormSubmit = () => {
+  mainForm.addEventListener('submit', (evt) => {
+    // const formData = new FormData(evt);
+    // console.log("qwert");
+    evt.preventDefault();
+
+    sendData(
+      () => {
+
+        showSuccessMessage();
+        resetForm();
+      },
+      () => showErrorMessage(),
+      new FormData(evt.target),
+
+      // formData(),
+    );
+  });
+}
+
+export {setUserFormSubmit}
