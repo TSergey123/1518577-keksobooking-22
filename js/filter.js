@@ -1,100 +1,109 @@
-import { PUBLICATION_LENGTH } from "./data.js";
-import { reRenderMarkers } from "./map.js";
+import { reRenderMarkers } from './map.js'
 
+const MAX_NUMBER_OF_PINS = 10;
+const DEBOUNCE_TIME = 500;
+
+const PriceRange = {
+  LOW: {
+    MAX: 10000,
+  },
+  MIDDLE: {
+    MIN: 10000,
+    MAX: 50000,
+  },
+  HIGH: {
+    MIN: 50000,
+  },
+};
 const mapFilters = document.querySelector('.map__filters');
-const housingType = mapFilters.querySelector('#housing-type');
-const housingPrice = mapFilters.querySelector('#housing-price'); 
-const housingRoom = mapFilters.querySelector('#housing-rooms'); 
-const housingGuest = mapFilters.querySelector('#housing-guests'); 
+const selects = mapFilters.querySelectorAll('select');
 
-// const mapFiltersVal = {
-//     TYPES: [
-//         'any',
-//         'palace',
-//         'flat',
-//         'house',
-//         'bungalow',
-//     ],
-//     PRICES: [
-//         'any',
-//         'middle',
-//         'low',
-//         'hight',
-//     ],
-//     ROOMS: [
-//         '1',
-//         '2',
-//         '3,',
-//     ],
-//     GUESTS: [
-//         'any',
-//         '2',
-//         '1',
-//         '0',
-//     ],
-//     FEATURES: [
-//         'wifi',
-//         'dishwasher',
-//         'parking',
-//         'washer',
-//         'elevator',
-//         'conditioner',
-//     ],
-// };
+const debounce = (fn, ms) => {
+  let timeout;
+  return function () {
+    const fnCall = () => {
+      fn.apply(this, arguments);
+    }
+    clearTimeout(timeout);
+    timeout = setTimeout(fnCall, ms);
+  };
+}
 
-// const renderSimilarList = (similarApp) => {
-//     const similarListFragment = document.createDocumentFragment();
-//     similarApp
-//     .slice()
-//     .sort()
-//     .slice(0, PUBLICATION_LENGTH);
+const checkPrice = (value, range) => {
 
-
-//     const sameType = similarApp.filter(() => {});
-//     const samePrice = similarApp.filter(() => {});
-//     const sameRoom = similarApp.filter(() => {});
-//     const sameGuest = similarApp.filter(() => {});
-//     const sameFeature = similarApp.filter(() => {});
-
-//     similarApp.forEach(({type, price, room, guest, feature}) => {
-//         createPublication();
-//     });
-// }
-
-// housingType.addEventListener('change', (evt) => {
-//     const housingTypeVal = housingType.value;
-// });
-
-// const addFilter = (offers) => {
-//     housingType.addEventListener('change', () => {
-//         if(housingType.value === 'any') {
-//             reRenderMarkers(offers);
-//         } else {
-//             const filteredOffers = offers.filter((item) => item.offers.type === houseType.value);
-//             reRenderMarkers(filteredOffers);
-//         }
-//         });
-// }
-// addFilter();
-
-const checkFilterConditions = (offer) => {
-    return housingType.value === 'any' || housingType.value === offer.type;
+  switch (value) {
+    case 'low':
+      return range <= PriceRange.LOW.MAX;
+    case 'middle':
+      return range >= PriceRange.MIDDLE.MIN && range <= PriceRange.MIDDLE.MAX;
+    case 'high':
+      return range >= PriceRange.HIGH.MIN;
+    default:
+      return false;
   }
-  
-  const addFilterListener = (offers) => {
-    housingType.addEventListener('change', function () {
-  
-      const filteredOffers = [];
-      for (let offer of offers) {
-        if (checkFilterConditions(offer.offer)) {
-          filteredOffers.push(offer);
-          if (filteredOffers.length >= PUBLICATION_LENGTH) {
-            break;
-          }
-        }
-      }
-      reRenderMarkers(filteredOffers);
-    });
+}
+
+const matchSelect = (offer, selectType, selectValue) => {
+
+  if (selectValue === 'any') {
+    return true;
   }
 
-  export {addFilterListener};
+  if (selectType === 'price') {
+    return checkPrice(selectValue, offer[selectType]);
+  }
+
+  return selectValue === offer[selectType].toString();
+
+}
+
+
+const matchSelectsForOffer = (offer) => {
+  const array = Array.from(selects);
+
+  return array.every((select) => {
+    const selectPropType = select.name.split('-')[1];
+    return matchSelect(offer, selectPropType, select.value);
+  });
+}
+
+const matchFeaturesForOffer = (offer) => {
+  const features = mapFilters.querySelectorAll('input:checked');
+  const filterFeatureList = Array.from(features);
+
+  if (filterFeatureList.length === 0 || offer.features.length === 0) {
+    return true;
+  }
+
+  if (offer.features.length < filterFeatureList.length) {
+    return false;
+  }
+
+  return filterFeatureList.every((feature) => {
+    return offer.features.includes(feature.value);
+  });
+}
+
+const orderFilter = (items) => {
+  let filteredOffers = [];
+
+  items.some((offerItem) => {
+    if (filteredOffers.length >= MAX_NUMBER_OF_PINS) {
+      return true;
+    }
+
+    if (matchSelectsForOffer(offerItem.offer) && matchFeaturesForOffer(offerItem.offer)) {
+      filteredOffers.push(offerItem);
+    }
+  });
+
+  reRenderMarkers(filteredOffers);
+}
+
+const addFilterListener = (offers) => {
+  const onFilterChange = debounce(() => orderFilter(offers), DEBOUNCE_TIME);
+
+  mapFilters.addEventListener('change', onFilterChange);
+}
+
+export {addFilterListener};

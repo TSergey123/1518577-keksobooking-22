@@ -22,16 +22,6 @@ export{address}
 
 const disableForm = () => {
   form.classList.add('ad-form--disabled');
-  // mapFilters.classList.add('ad-form--disabled');
-
-  // mapFiltersFieldset.forEach(function(item){
-  //   item.setAttribute('disabled', true);
-  // });
-
-  // mapFiltersSelect.forEach(function(item){
-  //   item.setAttribute('disabled', true);
-  // });
-
   formFieldset.forEach(function (item) {
     item.setAttribute('disabled', true);
   });
@@ -57,97 +47,28 @@ const activateForm = () => {
 
 export{activateForm};
 
-// const typeCapacity = {
-//   100: '<option value="0">не для гостей</option>',
-//   1: '<option value="1">для 1 гостя</option>',
-//   2: '<option value="2">для 2 гостей</option> <option value="1"> для 1 гостя</option>',
-//   3: '<option value="3">для 3 гостей</option> <option value="2">для 2 гостей</option> <option value="1">для 1 гостя</option>',
-// }
-// const chooseRoom = (evt) => {
-//   roomCapacity.innerHTML = typeCapacity[roomNumber.value];
-// }
-// roomNumber.addEventListener('click', chooseRoom);
+//вариант со 100 комнатами не отображется;(
+const checkAmount = () => {
+  const MAX_ROOMS_NUMBER = 100;
+  const rooms = roomNumber.value;
+  const capacityAmount = roomCapacity.value;
 
-
-
-const roomValidation = () => {
-if (roomNumber.selectedIndex === 0) {
-  roomCapacity.selectedIndex = 2;
-  roomCapacity.options[0].disabled = true;
-  roomCapacity.options[1].disabled = true;
-  roomCapacity.options[3].disabled = true;
+  if (rooms === MAX_ROOMS_NUMBER && capacityAmount !== '0') {
+    roomCapacity.setCustomValidity('Выберите вариант "Не для гостей"');
+  } else if (rooms < capacityAmount) {
+    roomCapacity.setCustomValidity('Выберите меньшее число гостей');
+  } else {
+    roomCapacity.setCustomValidity('');
+  }
 }
+
+roomCapacity.addEventListener('change', () => {
+  checkAmount();
+})
 
 roomNumber.addEventListener('change', () => {
-  if (roomNumber.selectedIndex === 0) {
-    roomCapacity.selectedIndex = 2;
-    roomCapacity.options[2].disabled = false;
-    roomCapacity.options[0].disabled = true;
-    roomCapacity.options[1].disabled = true;
-    roomCapacity.options[3].disabled = true;
-  } else if (roomNumber.selectedIndex === 1) {
-    roomCapacity.selectedIndex = 2;
-    roomCapacity.options[1].disabled = false;
-    roomCapacity.options[2].disabled = false;
-    roomCapacity.options[0].disabled = true;
-    roomCapacity.options[3].disabled = true;
-  } else if (roomNumber.selectedIndex === 2) {
-    roomCapacity.selectedIndex = 2;
-    roomCapacity.options[0].disabled = false;
-    roomCapacity.options[1].disabled = false;
-    roomCapacity.options[2].disabled = false;
-    roomCapacity.options[3].disabled = true;
-  } else if (roomNumber.selectedIndex === 3) {
-    roomCapacity.options[3].disabled = false;
-    roomCapacity.options[0].disabled = true;
-    roomCapacity.options[1].disabled = true;
-    roomCapacity.options[2].disabled = true;
-    roomCapacity.selectedIndex = 3;
-  }
-  roomCapacity.reportValidity();
-});
-}
-roomValidation();
-
-
-
-
-
-
-// const MAX_VAL = 100;
-// const roomInt = Number(roomNumber.value)
-// roomNumber.addEventListener('click', () => {
-//   if (roomInt === MAX_VAL) {
-//     roomCapacity.selectedIndex = 0;
-//     optionCapacity.forEach((option) => {
-//       const optInt = Number(option.value);
-//       option.disabled = optInt > roomCapacity.selectedIndex;
-//     });
-//   } else {
-//     roomCapacity.selectedIndex = roomInt;
-//     optionCapacity.forEach((option, index) => {
-//       const optInt = Number(option.value);
-//       option.disabled = index === 0 || optInt > roomInt;
-//     });
-//   }
-// });
-
-
-
-// onRoomCapacityChange();
-
-// Хотел изначальное сделать через disabled.
-// Был вариант сделать так как уже сделал, только перечислить все поля, а ненужным добавить аттрибут disabled.
-// Но так запись получается слишком длинной, а если полей будет много, то получится не оч.
-// Вообще и с моим решением, с большим количеством полей будут проблемы.
-// Можешь пожалуйста подсказать, как сделать аналогично или через disabled, только через if?
-
-// Что-то вроде такого, только не знаю как грамотно сделать
-// roomNumber.addEventListener('click', () => {
-//   if(roomNumber.value > roomCapacity.value)
-//     roomCapacity.setCustomValidity(roomCapacity.value.setAttribute('disabled', true) );
-// });
-
+  checkAmount();
+})
 
 const chooseTime = (evt) => {
   timeIn.value = evt.target.value
@@ -223,8 +144,6 @@ const resetForm = () => {
 const formSubmit = document.querySelector('.ad-form__submit');
 const setUserFormSubmit = () => {
   mainForm.addEventListener('submit', (evt) => {
-    // const formData = new FormData(evt);
-    // console.log("qwert");
     evt.preventDefault();
 
     sendData(
@@ -235,8 +154,6 @@ const setUserFormSubmit = () => {
       },
       () => showErrorMessage(),
       new FormData(evt.target),
-
-      // formData(),
     );
   });
 }

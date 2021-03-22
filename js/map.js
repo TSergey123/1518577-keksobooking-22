@@ -1,6 +1,5 @@
 import {createSimilarPopup} from './popup.js';
 import {address, disableForm, activateForm} from './form.js';
-import {similarOffer} from './create-publication.js';
 
 const TOKYO_LAT = 35.712977129360546;
 const TOKYO_LNG = 139.7540842153831;
@@ -59,12 +58,6 @@ const initMap = (offers) => {
 });
 
   mainPin.addTo(map);
-
-  // offers.forEach((offer) => {
-  //   const pin = createPin(offer.location.lat, offer.location.lng);
-  //   pin.addTo(map);
-  //   pin.bindPopup(() => createSimilarPopup(offer));
-  // });
 }
 
 const resetMainMarker = () => {
@@ -89,15 +82,6 @@ const removeMarkers = () => {
     marker.remove();
   });
 }
-
-// const renderMap = (offer) => {
-//   offer.slice(0,10).forEach((offer) => {
-//     const pin = createPin(offer.location.lat, offer.location.lng);
-//     pin.addTo(map);
-//     pin.bindPopUp(() => createSimilarPopup(offer));
-//     pinList.push(pin);
-//   });
-// }
 
 const  renderMap = (offers) => {
 

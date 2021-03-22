@@ -44,8 +44,6 @@ chooseFile.addEventListener('change', () => {
             previewBlockImage.width = '70';
             previewBlockImage.height = '70';
             previewBlockImage.src = reader.result;
-            // photoContainer.appendChild(previewBlock);
-            // хотел что бы при загрузки фотографии появлялся еще один слот, но почему-то не получилось(
         });
 
         reader.readAsDataURL(file);

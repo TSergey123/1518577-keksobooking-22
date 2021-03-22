@@ -5,8 +5,8 @@ import { showAlert } from "./util.js";
 import {addFilterListener} from './filter.js';
 
 getData((offer) => {
-    initMap(offer)
-    addFilterListener(offer)
+    initMap(offer),
+    addFilterListener(offer), 
     renderMap(offer)
 },
 () => {
