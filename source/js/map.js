@@ -6,8 +6,8 @@ const TOKYO_LNG = 139.7540842153831;
 const TOKYO_FIXED = TOKYO_LAT.toFixed(5) + ', ' + TOKYO_LNG.toFixed(5);
 const MAIN_ZOOM = 10;
 const resetForm = document.querySelector('.ad-form__reset');
-
 const map = window.L.map('map-canvas');
+
 const createMarker = (lat, lng, draggable, icon) => {
   return window.L.marker({
     lat,
