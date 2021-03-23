@@ -38,10 +38,4 @@ const closeMessage = () => {
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
 
-const getXhrData = (onLoad, onError) => {
-  xhr.addEventListener('timeout', function () {
-    onError('timeOut ' + xhr.timeout);
-  });
-}
-
 export { showSuccessMessage, showErrorMessage }

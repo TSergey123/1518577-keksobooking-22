@@ -13,10 +13,10 @@ const createMarker = (lat, lng, draggable, icon) => {
     lat,
     lng,
   },
-    {
-      draggable,
-      icon,
-    })
+  {
+    draggable,
+    icon,
+  })
 }
 
 const createPin = (lat, lng) => {
@@ -35,7 +35,7 @@ const createMainPin = (lat, lng) => {
   }));
 }
 
-const initMap = (offers) => {
+const initMap = () => {
   disableForm();
 
   map.on('load', () => {

@@ -32,6 +32,7 @@ const getRandomArraySlice = (array) => {
 };
 
 const showAlert = (message) => {
+  const map = window.L.map('map-canvas');
   const ALERT_SHOW_TIME = 5000
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = 100;

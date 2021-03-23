@@ -21,7 +21,6 @@ fileChooser.addEventListener('change', () => {
   }
 });
 
-const photoContainer = document.querySelector('.ad-form__photo-container');
 const chooseFile = document.querySelector('.ad-form__input');
 const previewBlock = document.querySelector('.ad-form__photo');
 
