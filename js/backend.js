@@ -5,12 +5,12 @@ import { showAlert } from './util.js';
 import { addFilterListener } from './filter.js';
 
 getData((offer) => {
-    initMap(offer),
-        addFilterListener(offer),
-        renderMap(offer)
+  initMap(offer),
+    addFilterListener(offer),
+    renderMap(offer)
 },
-    () => {
-        showAlert('Data not found error');
-    }
+  () => {
+    showAlert('Data not found error');
+  }
 );
 setUserFormSubmit();
