@@ -8,7 +8,7 @@ getData((offer) => {
   initMap(offer),
   addFilterListener(offer),
   renderMap(offer)
-  },
+},
 () => {
   showAlert('Data not found error');
 },
