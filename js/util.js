@@ -8,7 +8,6 @@ function getRandomInteger(min, max) {
   let randInt = min + Math.random() * (max + 1 - min);
   return Math.floor(randInt);
 }
-export {getRandomInteger};
 
 
 function getRandomFloat(min, max, commas) {
@@ -21,20 +20,16 @@ function getRandomFloat(min, max, commas) {
   let randFloat = (Math.random() * (max - min) + min).toFixed(commas);
   return randFloat;
 }
-export {getRandomFloat};
 
-function getRandomArrayElement(elements){
+
+function getRandomArrayElement(elements) {
   return elements[getRandomInteger(0, elements.length - 1)];
 }
-export {getRandomArrayElement};
 
 const getRandomArraySlice = (array) => {
   getRandomArrayElement(array);
   return array.slice(getRandomInteger(0, array.length - 1));
 };
-
-export {getRandomArraySlice}
-
 
 const showAlert = (message) => {
   const ALERT_SHOW_TIME = 5000
@@ -50,9 +45,7 @@ const showAlert = (message) => {
   alertContainer.style.padding = '10px 3px';
   alertContainer.style.fontSize = '30px';
   alertContainer.style.textAlign = 'center';
-
   alertContainer.textContent = message;
-
   map.append(alertContainer);
 
   setTimeout(() => {
@@ -60,10 +53,8 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 }
 
-export {showAlert}
-
 const isEscEvent = (evt) => {
   return evt.key === 'Escape' || evt.key === 'Esc';
 };
 
-export {isEscEvent}
+export { isEscEvent, showAlert, getRandomArraySlice, getRandomArrayElement, getRandomFloat, getRandomInteger }

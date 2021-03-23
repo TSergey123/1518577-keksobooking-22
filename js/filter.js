@@ -54,9 +54,7 @@ const matchSelect = (offer, selectType, selectValue) => {
   }
 
   return selectValue === offer[selectType].toString();
-
 }
-
 
 const matchSelectsForOffer = (offer) => {
   const array = Array.from(selects);
@@ -71,12 +69,12 @@ const matchFeaturesForOffer = (offer) => {
   const features = mapFilters.querySelectorAll('input:checked');
   const filterFeatureList = Array.from(features);
 
-  if (filterFeatureList.length === 0 || offer.features.length === 0) {
-    return true;
-  }
-
   if (offer.features.length < filterFeatureList.length) {
     return false;
+  }
+
+  if (filterFeatureList.length === 0 || offer.features.length === 0) {
+    return true;
   }
 
   return filterFeatureList.every((feature) => {
@@ -106,4 +104,4 @@ const addFilterListener = (offers) => {
   mapFilters.addEventListener('change', onFilterChange);
 }
 
-export {addFilterListener};
+export { addFilterListener };

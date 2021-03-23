@@ -1,20 +1,19 @@
-import {isEscEvent} from './util.js';
+import { isEscEvent } from './util.js';
 
 const successMessage = document.querySelector('#success').content.querySelector('.success');
 const errorMessage = document.querySelector('#error').content.querySelector('.error');
 
-
 const onPopupEscKeydown = (evt) => {
     if (isEscEvent(evt)) {
-      evt.preventDefault();
-      closeMessage();
+        evt.preventDefault();
+        closeMessage();
     }
-  }
+}
 
-  const onClick = (evt) => {
+const onClick = (evt) => {
     evt.preventDefault();
     closeMessage();
-  };
+};
 
 const showMessage = (message) => {
     document.body.appendChild(message);
@@ -33,18 +32,16 @@ const showErrorMessage = () => {
     showMessage(error);
 }
 
-
-
 const closeMessage = () => {
     document.querySelectorAll('.success, .error').forEach((message) => message.remove());
     document.removeEventListener('click', onClick);
     document.removeEventListener('keydown', onPopupEscKeydown);
-  };
+};
 
 const getXhrData = (onLoad, onError) => {
     xhr.addEventListener('timeout', function () {
         onError('timeOut ' + xhr.timeout);
-      });
-   }
+    });
+}
 
-export {showSuccessMessage, showErrorMessage}
+export { showSuccessMessage, showErrorMessage }

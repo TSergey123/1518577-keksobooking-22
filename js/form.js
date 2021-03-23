@@ -1,6 +1,6 @@
-import { sendData } from "./fetch.js";
-import { showSuccessMessage, showErrorMessage } from "./message.js";
-import {resetMainMarker, setAddress} from "./map.js";
+import { sendData } from './fetch.js';
+import { showSuccessMessage, showErrorMessage } from './message.js';
+import { resetMainMarker, setAddress } from './map.js';
 
 const form = document.querySelector('.ad-form')
 const type = form.querySelector('#type');
@@ -17,26 +17,22 @@ const mapFiltersSelect = mapFilters.querySelectorAll('select');
 const mapFiltersFieldset = mapFilters.querySelectorAll('fieldset');
 const mainForm = document.querySelector('.ad-form');
 
-
-export{address}
-
 const disableForm = () => {
   form.classList.add('ad-form--disabled');
   formFieldset.forEach(function (item) {
     item.setAttribute('disabled', true);
   });
 }
-export{disableForm};
 
 const activateForm = () => {
   form.classList.remove('ad-form--disabled');
   mapFilters.classList.remove('ad-form--disabled');
 
-  mapFiltersFieldset.forEach(function(item){
+  mapFiltersFieldset.forEach(function (item) {
     item.removeAttribute('disabled', true);
   });
 
-  mapFiltersSelect.forEach(function(item){
+  mapFiltersSelect.forEach(function (item) {
     item.removeAttribute('disabled', true);
   });
 
@@ -45,12 +41,9 @@ const activateForm = () => {
   });
 }
 
-export{activateForm};
-
-//вариант со 100 комнатами не отображется;(
 const checkAmount = () => {
   const MAX_ROOMS_NUMBER = 100;
-  const rooms = roomNumber.value;
+  const rooms = Number(roomNumber.value);
   const capacityAmount = roomCapacity.value;
 
   if (rooms === MAX_ROOMS_NUMBER && capacityAmount !== '0') {
@@ -77,10 +70,6 @@ const chooseTime = (evt) => {
 timeOut.addEventListener('click', chooseTime);
 timeIn.addEventListener('click', chooseTime);
 
-// как сделать так что бы например при выборе первого элемента из первого списка
-// во втором списке бы выбирался например второй элемент из списка?
-// понимаю что это не нужно, но просто, для общего понимания
-
 const typePrice = {
   bungalow: '0',
   flat: '1000',
@@ -94,15 +83,15 @@ const typeChange = () => {
 }
 type.addEventListener('click', typeChange);
 
-title.addEventListener('input', () =>{
+title.addEventListener('input', () => {
   const MIN_TITLE_LENGTH = 30;
   const MAX_TITLE_LENGTH = 100;
   const valueLength = title.value.length;
-  if(valueLength < MIN_TITLE_LENGTH){
+  if (valueLength < MIN_TITLE_LENGTH) {
     title.setCustomValidity('Еще ' + (MIN_TITLE_LENGTH - valueLength) + ' симв.');
   }
 
-  else if(valueLength > MAX_TITLE_LENGTH){
+  else if (valueLength > MAX_TITLE_LENGTH) {
     title.setCustomValidity('Удалите лишние ' + (valueLength - MAX_TITLE_LENGTH) + ' симв.');
   }
   else {
@@ -115,14 +104,14 @@ title.addEventListener('input', () =>{
 price.addEventListener('input', () => {
   const MAX_PRICE_VALUE = 1000000;
   const priceValue = price.value;
-  if(priceValue > MAX_PRICE_VALUE) {
+  if (priceValue > MAX_PRICE_VALUE) {
     price.setCustomValidity('Выберите дешевле на ' + (priceValue - MAX_PRICE_VALUE));
   }
 
-  if(!/^[0-9]+$/.test(priceValue)){
+  if (!/^[0-9]+$/.test(priceValue)) {
     price.setCustomValidity('Для ввода доступны только цифры');
   }
-  if(priceValue < price.min){
+  if (priceValue < price.min) {
     price.setCustomValidity('Минимальная цена для данного типа жилья - ' + typePrice[type.value]);
   }
 
@@ -133,7 +122,6 @@ price.addEventListener('input', () => {
   price.reportValidity();
 });
 
-
 const resetForm = () => {
   mainForm.reset();
   mapFilters.reset();
@@ -141,7 +129,6 @@ const resetForm = () => {
   setAddress();
 }
 
-const formSubmit = document.querySelector('.ad-form__submit');
 const setUserFormSubmit = () => {
   mainForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -158,4 +145,4 @@ const setUserFormSubmit = () => {
   });
 }
 
-export {setUserFormSubmit}
+export { setUserFormSubmit, activateForm, disableForm, address };
