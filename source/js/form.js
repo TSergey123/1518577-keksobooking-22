@@ -54,6 +54,7 @@ const checkAmount = () => {
     roomCapacity.setCustomValidity('');
   }
 }
+checkAmount();
 
 roomCapacity.addEventListener('change', () => {
   checkAmount();
