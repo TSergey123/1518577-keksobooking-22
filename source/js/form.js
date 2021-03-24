@@ -54,6 +54,7 @@ const checkAmount = () => {
     roomCapacity.setCustomValidity('');
   }
 }
+checkAmount();
 
 roomCapacity.addEventListener('change', () => {
   checkAmount();
@@ -101,7 +102,7 @@ title.addEventListener('input', () => {
 });
 
 
-price.addEventListener('input', () => {
+const typePriceVal = () => {
   const MAX_PRICE_VALUE = 1000000;
   const priceValue = price.value;
   if (priceValue > MAX_PRICE_VALUE) {
@@ -120,6 +121,17 @@ price.addEventListener('input', () => {
   }
 
   price.reportValidity();
+}
+
+
+price.addEventListener('input', () => {
+  typePriceVal();
+});
+
+
+
+type.addEventListener('blur', () => {
+  typePriceVal();
 });
 
 const resetForm = () => {
