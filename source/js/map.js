@@ -1,14 +1,13 @@
-import {createSimilarPopup} from './popup.js';
-import {address, disableForm, activateForm} from './form.js';
-import {similarOffer} from './create-publication.js';
+import { createSimilarPopup } from './popup.js';
+import { address, disableForm, activateForm } from './form.js';
 
 const TOKYO_LAT = 35.712977129360546;
 const TOKYO_LNG = 139.7540842153831;
 const TOKYO_FIXED = TOKYO_LAT.toFixed(5) + ', ' + TOKYO_LNG.toFixed(5);
 const MAIN_ZOOM = 10;
 const resetForm = document.querySelector('.ad-form__reset');
-
 const map = window.L.map('map-canvas');
+
 const createMarker = (lat, lng, draggable, icon) => {
   return window.L.marker({
     lat,
@@ -36,9 +35,9 @@ const createMainPin = (lat, lng) => {
   }));
 }
 
-const initMap = (offers) => {
+const initMap = () => {
   disableForm();
-  
+
   map.on('load', () => {
     address.value = TOKYO_FIXED;
   })
@@ -54,17 +53,11 @@ const initMap = (offers) => {
   ).addTo(map);
 
   mainPin.on('moveend', (evt) => {
-  activateForm();
-  address.value = evt.target.getLatLng().lat.toFixed(5) + ', ' + evt.target.getLatLng().lng.toFixed(5);
-});
+    activateForm();
+    address.value = evt.target.getLatLng().lat.toFixed(5) + ', ' + evt.target.getLatLng().lng.toFixed(5);
+  });
 
   mainPin.addTo(map);
-
-  // offers.forEach((offer) => {
-  //   const pin = createPin(offer.location.lat, offer.location.lng);
-  //   pin.addTo(map);
-  //   pin.bindPopup(() => createSimilarPopup(offer));
-  // });
 }
 
 const resetMainMarker = () => {
@@ -90,16 +83,7 @@ const removeMarkers = () => {
   });
 }
 
-// const renderMap = (offer) => {
-//   offer.slice(0,10).forEach((offer) => {
-//     const pin = createPin(offer.location.lat, offer.location.lng);
-//     pin.addTo(map);
-//     pin.bindPopUp(() => createSimilarPopup(offer));
-//     pinList.push(pin);
-//   });
-// }
-
-const  renderMap = (offers) => {
+const renderMap = (offers) => {
 
   offers.slice(0, 10).forEach((offer) => {
     const pin = createPin(offer.location.lat, offer.location.lng).addTo(map).bindPopup(() => createSimilarPopup(offer));
@@ -112,4 +96,4 @@ const reRenderMarkers = (offer) => {
   renderMap(offer);
 }
 
-export {initMap, resetMainMarker, setAddress, reRenderMarkers, renderMap};
+export { initMap, resetMainMarker, setAddress, reRenderMarkers, renderMap };

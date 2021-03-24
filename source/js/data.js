@@ -1,4 +1,4 @@
-import {getRandomFloat} from './util.js';
+import { getRandomFloat } from './util.js';
 
 const TITLES = ['Квартира', 'Аппартаменты', 'Лофт', 'Студия'];
 const TYPES = ['palace', 'flat', 'house', 'bungalow'];
@@ -13,5 +13,4 @@ const location = {
   y: getRandomFloat(139.70000, 139.80000, 5),
 }
 
-export {TITLES, TYPES, CHECKS, FEATURES, DESCRIPTIONS, PHOTOS, PUBLICATION_LENGTH, location};
-
+export { TITLES, TYPES, CHECKS, FEATURES, DESCRIPTIONS, PHOTOS, PUBLICATION_LENGTH, location };
