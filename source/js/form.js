@@ -16,6 +16,14 @@ const mapFilters = document.querySelector('.map__filters');
 const mapFiltersSelect = mapFilters.querySelectorAll('select');
 const mapFiltersFieldset = mapFilters.querySelectorAll('fieldset');
 const mainForm = document.querySelector('.ad-form');
+const MAX_PRICE_VALUE = 1000000;
+const priceValue = price.value;
+const MAX_ROOMS_NUMBER = 100;
+const rooms = Number(roomNumber.value);
+const capacityAmount = roomCapacity.value;
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
+const valueLength = title.value.length;
 
 const disableForm = () => {
   form.classList.add('ad-form--disabled');
@@ -42,10 +50,6 @@ const activateForm = () => {
 }
 
 const checkAmount = () => {
-  const MAX_ROOMS_NUMBER = 100;
-  const rooms = Number(roomNumber.value);
-  const capacityAmount = roomCapacity.value;
-
   if (rooms === MAX_ROOMS_NUMBER && capacityAmount !== '0') {
     roomCapacity.setCustomValidity('Выберите вариант "Не для гостей"');
   } else if (rooms < capacityAmount) {
@@ -64,12 +68,12 @@ roomNumber.addEventListener('change', () => {
   checkAmount();
 })
 
-const chooseTime = (evt) => {
+const onChooseTime = (evt) => {
   timeIn.value = evt.target.value
   timeOut.value = evt.target.value
 }
-timeOut.addEventListener('click', chooseTime);
-timeIn.addEventListener('click', chooseTime);
+timeOut.addEventListener('click', onChooseTime);
+timeIn.addEventListener('click', onChooseTime);
 
 const typePrice = {
   bungalow: '0',
@@ -78,16 +82,13 @@ const typePrice = {
   palace: '10000',
 }
 
-const typeChange = () => {
+const onTypeChange = () => {
   price.placeholder = typePrice[type.value];
   price.min = typePrice[type.value];
 }
-type.addEventListener('click', typeChange);
+type.addEventListener('click', onTypeChange);
 
 title.addEventListener('input', () => {
-  const MIN_TITLE_LENGTH = 30;
-  const MAX_TITLE_LENGTH = 100;
-  const valueLength = title.value.length;
   if (valueLength < MIN_TITLE_LENGTH) {
     title.setCustomValidity('Еще ' + (MIN_TITLE_LENGTH - valueLength) + ' симв.');
   }
@@ -101,10 +102,7 @@ title.addEventListener('input', () => {
   title.reportValidity();
 });
 
-
-const typePriceVal = () => {
-  const MAX_PRICE_VALUE = 1000000;
-  const priceValue = price.value;
+const validateRoomPrice = () => {
   if (priceValue > MAX_PRICE_VALUE) {
     price.setCustomValidity('Выберите дешевле на ' + (priceValue - MAX_PRICE_VALUE));
   }
@@ -123,15 +121,12 @@ const typePriceVal = () => {
   price.reportValidity();
 }
 
-
 price.addEventListener('input', () => {
-  typePriceVal();
+  validateRoomPrice();
 });
 
-
-
 type.addEventListener('blur', () => {
-  typePriceVal();
+  validateRoomPrice();
 });
 
 const resetForm = () => {

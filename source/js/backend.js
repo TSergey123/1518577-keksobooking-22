@@ -10,7 +10,7 @@ getData((offer) => {
   renderMap(offer)
 },
 () => {
-  showAlert('Data not found error');
+  showAlert('Данные не найдены');
 },
 );
 setUserFormSubmit();

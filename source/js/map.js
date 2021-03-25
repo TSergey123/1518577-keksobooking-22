@@ -75,10 +75,10 @@ resetForm.addEventListener('click', () => {
   resetMainMarker();
 });
 
-const pinList = [];
+const pinLists = [];
 
 const removeMarkers = () => {
-  pinList.forEach((marker) => {
+  pinLists.forEach((marker) => {
     marker.remove();
   });
 }
@@ -87,7 +87,7 @@ const renderMap = (offers) => {
 
   offers.slice(0, 10).forEach((offer) => {
     const pin = createPin(offer.location.lat, offer.location.lng).addTo(map).bindPopup(() => createSimilarPopup(offer));
-    pinList.push(pin);
+    pinLists.push(pin);
   });
 }
 
@@ -96,4 +96,4 @@ const reRenderMarkers = (offer) => {
   renderMap(offer);
 }
 
-export { initMap, resetMainMarker, setAddress, reRenderMarkers, renderMap };
+export { initMap, resetMainMarker, setAddress, reRenderMarkers, renderMap, map };

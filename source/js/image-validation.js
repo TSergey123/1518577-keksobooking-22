@@ -21,11 +21,11 @@ fileChooser.addEventListener('change', () => {
   }
 });
 
-const chooseFile = document.querySelector('.ad-form__input');
+const fileInput = document.querySelector('.ad-form__input');
 const previewBlock = document.querySelector('.ad-form__photo');
 
-chooseFile.addEventListener('change', () => {
-  const file = chooseFile.files[0];
+fileInput.addEventListener('change', () => {
+  const file = fileInput.files[0];
   const fileName = file.name.toLowerCase();
 
   const matches = FILE_TYPES.some((it) => {
