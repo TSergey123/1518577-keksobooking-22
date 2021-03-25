@@ -17,13 +17,9 @@ const mapFiltersSelect = mapFilters.querySelectorAll('select');
 const mapFiltersFieldset = mapFilters.querySelectorAll('fieldset');
 const mainForm = document.querySelector('.ad-form');
 const MAX_PRICE_VALUE = 1000000;
-const priceValue = price.value;
 const MAX_ROOMS_NUMBER = 100;
-const rooms = Number(roomNumber.value);
-const capacityAmount = roomCapacity.value;
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
-const valueLength = title.value.length;
 
 const disableForm = () => {
   form.classList.add('ad-form--disabled');
@@ -50,6 +46,9 @@ const activateForm = () => {
 }
 
 const checkAmount = () => {
+  const rooms = Number(roomNumber.value);
+  const capacityAmount = roomCapacity.value;
+
   if (rooms === MAX_ROOMS_NUMBER && capacityAmount !== '0') {
     roomCapacity.setCustomValidity('Выберите вариант "Не для гостей"');
   } else if (rooms < capacityAmount) {
@@ -89,6 +88,8 @@ const onTypeChange = () => {
 type.addEventListener('click', onTypeChange);
 
 title.addEventListener('input', () => {
+  const valueLength = title.value.length;
+
   if (valueLength < MIN_TITLE_LENGTH) {
     title.setCustomValidity('Еще ' + (MIN_TITLE_LENGTH - valueLength) + ' симв.');
   }
@@ -103,6 +104,7 @@ title.addEventListener('input', () => {
 });
 
 const validateRoomPrice = () => {
+  const priceValue = price.value;
   if (priceValue > MAX_PRICE_VALUE) {
     price.setCustomValidity('Выберите дешевле на ' + (priceValue - MAX_PRICE_VALUE));
   }
