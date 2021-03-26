@@ -1,5 +1,5 @@
 import { createSimilarPopup } from './popup.js';
-import { address, disableForm, activateForm } from './form.js';
+import { address, activateForm } from './form.js';
 
 const TOKYO_LAT = 35.712977129360546;
 const TOKYO_LNG = 139.7540842153831;
