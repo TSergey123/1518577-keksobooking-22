@@ -36,8 +36,7 @@ const createMainPin = (lat, lng) => {
 }
 
 const initMap = () => {
-  disableForm();
-
+  activateForm();
   map.on('load', () => {
     address.value = TOKYO_FIXED;
   })
@@ -53,7 +52,6 @@ const initMap = () => {
   ).addTo(map);
 
   mainPin.on('moveend', (evt) => {
-    activateForm();
     address.value = evt.target.getLatLng().lat.toFixed(5) + ', ' + evt.target.getLatLng().lng.toFixed(5);
   });
 
