@@ -1,25 +1,22 @@
-import { map } from './map.js';
-
 const ALERT_SHOW_TIME = 5000
-const alertElement = document.createElement('div');
-
 const showAlert = (message) => {
-  alertElement.style.zIndex = 100;
-  alertElement.style.backgroundColor = 'red';
-  alertElement.style.zIndex = 100;
-  alertElement.style.position = 'absolute';
-  alertElement.style.left = 0;
-  alertElement.style.right = 0;
-  alertElement.style.top = '50%';
-  alertElement.style.marginLeft = 'auto';
-  alertElement.style.padding = '10px 3px';
-  alertElement.style.fontSize = '30px';
-  alertElement.style.textAlign = 'center';
-  alertElement.textContent = message;
-  map.append(alertElement);
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = 100;
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = 0;
+  alertContainer.style.top = 0;
+  alertContainer.style.right = 0;
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'tomato';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
 
   setTimeout(() => {
-    alertElement.remove();
+    alertContainer.remove();
   }, ALERT_SHOW_TIME);
 }
 

@@ -1,7 +1,12 @@
-import { sendData } from './fetch.js';
+import { sendData, getData } from './fetch.js';
 import { showSuccessMessage, showErrorMessage } from './message.js';
-import { resetMainMarker, setAddress } from './map.js';
+import { resetMainMarker, setAddress, reRenderMarkers, removeMarkers, renderMap } from './map.js';
+import { preview, previewBlockImage } from './image-validation.js';
 
+const MAX_PRICE_VALUE = 1000000;
+const MAX_ROOMS_NUMBER = 100;
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
 const form = document.querySelector('.ad-form')
 const type = form.querySelector('#type');
 const address = form.querySelector('#address');
@@ -13,13 +18,9 @@ const roomNumber = form.querySelector('#room_number');
 const roomCapacity = form.querySelector('#capacity');
 const formFieldset = form.querySelectorAll('fieldset');
 const mapFilters = document.querySelector('.map__filters');
-const mapFiltersSelect = mapFilters.querySelectorAll('select');
 const mapFiltersFieldset = mapFilters.querySelectorAll('fieldset');
 const mainForm = document.querySelector('.ad-form');
-const MAX_PRICE_VALUE = 1000000;
-const MAX_ROOMS_NUMBER = 100;
-const MIN_TITLE_LENGTH = 30;
-const MAX_TITLE_LENGTH = 100;
+const mapDisabledElements = document.querySelectorAll('fieldset, select.map__filter');
 
 const disableForm = () => {
   form.classList.add('ad-form--disabled');
@@ -36,11 +37,7 @@ const activateForm = () => {
     item.removeAttribute('disabled', true);
   });
 
-  mapFiltersSelect.forEach(function (item) {
-    item.removeAttribute('disabled', true);
-  });
-
-  formFieldset.forEach(function (item) {
+  mapDisabledElements.forEach(function (item) {
     item.removeAttribute('disabled', true);
   });
 }
@@ -138,20 +135,33 @@ const resetForm = () => {
   setAddress();
 }
 
+const resetPhotos = () => {
+  preview.src = 'img/muffin-grey.svg';
+  previewBlockImage.remove();
+}
+
 const setUserFormSubmit = () => {
   mainForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-
     sendData(
       () => {
-
         showSuccessMessage();
         resetForm();
+        resetPhotos();
       },
       () => showErrorMessage(),
       new FormData(evt.target),
     );
+    getData((offer) => {
+      removeMarkers();
+      renderMap(offer);
+
+      initMap(offer),
+        reRenderMarkers(offer);
+    },
+    );
   });
 }
 
-export { setUserFormSubmit, activateForm, disableForm, address };
+
+export { setUserFormSubmit, activateForm, disableForm, address, resetPhotos, resetForm, onTypeChange };

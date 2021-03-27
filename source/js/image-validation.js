@@ -23,6 +23,7 @@ fileChooser.addEventListener('change', () => {
 
 const fileInput = document.querySelector('.ad-form__input');
 const previewBlock = document.querySelector('.ad-form__photo');
+const previewBlockImage = document.createElement('img');
 
 fileInput.addEventListener('change', () => {
   const file = fileInput.files[0];
@@ -36,7 +37,6 @@ fileInput.addEventListener('change', () => {
     const reader = new FileReader();
 
     reader.addEventListener('load', () => {
-      const previewBlockImage = document.createElement('img');
       previewBlock.appendChild(previewBlockImage);
       previewBlockImage.alt = 'Фотография жилья';
       previewBlockImage.width = '70';
@@ -47,3 +47,5 @@ fileInput.addEventListener('change', () => {
     reader.readAsDataURL(file);
   }
 });
+
+export {preview, previewBlockImage};

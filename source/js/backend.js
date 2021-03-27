@@ -1,14 +1,15 @@
 import { setUserFormSubmit, disableForm } from './form.js';
 import { getData } from './fetch.js';
-import { initMap, renderMap } from './map.js';
+import { initMap, renderMap, reRenderMarkers } from './map.js';
 import { showAlert } from './util.js';
 import { addFilterListener } from './filter.js';
 
-getData((offer) => {
+getData((offers) => {
   disableForm();
-  initMap(offer),
-  addFilterListener(offer),
-  renderMap(offer)
+  initMap(offers),
+  addFilterListener(offers),
+  renderMap(offers)
+  reRenderMarkers(offers);
 },
 () => {
   showAlert('Данные не найдены');

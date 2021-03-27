@@ -2,6 +2,9 @@ import { reRenderMarkers } from './map.js'
 
 const MAX_NUMBER_OF_PINS = 10;
 const DEBOUNCE_TIME = 500;
+const ANY_TYPE = 'any';
+const PRICE_TYPE = 'price';
+
 
 const PriceRange = {
   LOW: {
@@ -21,11 +24,11 @@ const selects = mapFilters.querySelectorAll('select');
 const debounce = (fn, ms) => {
   let timeout;
   return function () {
-    const fnCall = () => {
+    const callDebounce = () => {
       fn.apply(this, arguments);
     }
     clearTimeout(timeout);
-    timeout = setTimeout(fnCall, ms);
+    timeout = setTimeout(callDebounce, ms);
   };
 }
 
@@ -45,11 +48,11 @@ const checkPrice = (value, range) => {
 
 const matchSelect = (offer, selectType, selectValue) => {
 
-  if (selectValue === 'any') {
+  if (selectValue === ANY_TYPE) {
     return true;
   }
 
-  if (selectType === 'price') {
+  if (selectType === PRICE_TYPE) {
     return checkPrice(selectValue, offer[selectType]);
   }
 

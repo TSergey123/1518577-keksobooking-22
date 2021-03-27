@@ -1,22 +1,24 @@
 import { createSimilarPopup } from './popup.js';
-import { address, activateForm } from './form.js';
+import { address, activateForm, resetForm, resetPhotos } from './form.js';
+import { getData } from './fetch.js';
+import { onTypeChange } from './form.js';
 
 const TOKYO_LAT = 35.712977129360546;
 const TOKYO_LNG = 139.7540842153831;
 const TOKYO_FIXED = TOKYO_LAT.toFixed(5) + ', ' + TOKYO_LNG.toFixed(5);
 const MAIN_ZOOM = 10;
-const resetForm = document.querySelector('.ad-form__reset');
 const map = window.L.map('map-canvas');
+const resetFormButton = document.querySelector('.ad-form__reset');
 
 const createMarker = (lat, lng, draggable, icon) => {
   return window.L.marker({
     lat,
     lng,
   },
-  {
-    draggable,
-    icon,
-  })
+    {
+      draggable,
+      icon,
+    })
 }
 
 const createPin = (lat, lng) => {
@@ -35,10 +37,15 @@ const createMainPin = (lat, lng) => {
   }));
 }
 
+const setAddress = () => {
+  address.value = TOKYO_FIXED;
+};
+
 const initMap = () => {
   activateForm();
+  setAddress();
   map.on('load', () => {
-    address.value = TOKYO_FIXED;
+    setAddress();
   })
     .setView({
       lat: TOKYO_LAT,
@@ -63,16 +70,7 @@ const resetMainMarker = () => {
   map.setView(new window.L.LatLng(TOKYO_LAT, TOKYO_LNG), MAIN_ZOOM);
 };
 
-const setAddress = () => {
-  address.value = TOKYO_FIXED;
-};
-
 const mainPin = createMainPin(TOKYO_LAT, TOKYO_LNG);
-
-resetForm.addEventListener('click', () => {
-  resetMainMarker();
-});
-
 const pinLists = [];
 
 const removeMarkers = () => {
@@ -93,5 +91,24 @@ const reRenderMarkers = (offer) => {
   removeMarkers();
   renderMap(offer);
 }
+const resetPage = () => {
+  resetFormButton.addEventListener('click', () => {
+    resetForm();
+    resetMainMarker();
+    resetPhotos();
+    removeMarkers();
+    onTypeChange();
+    getData((offer) => {
+      initMap(offer),
+        reRenderMarkers(offer);
+    },
+      () => {
+        showAlert('Данные не найдены');
+      },
+    );
+  });
+}
+resetPage();
 
-export { initMap, resetMainMarker, setAddress, reRenderMarkers, renderMap, map };
+
+export { initMap, resetMainMarker, setAddress, reRenderMarkers, renderMap, map, removeMarkers };

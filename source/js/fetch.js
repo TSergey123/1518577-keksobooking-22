@@ -1,7 +1,9 @@
 import { showAlert } from './util.js';
 
+const GET_DATA_URL = 'https://22.javascript.pages.academy/keksobooking/data'
+const SEND_DATA_URL = 'https://22.javascript.pages.academy/keksobooking';
 const getData = (onSuccss, onError) => {
-  fetch('https://22.javascript.pages.academy/keksobooking/data')
+  fetch(GET_DATA_URL)
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -14,7 +16,7 @@ const getData = (onSuccss, onError) => {
 
 const sendData = (onSuccess, onError, body) => {
   fetch(
-    'https://22.javascript.pages.academy/keksobooking',
+    SEND_DATA_URL,
     {
       method: 'POST',
       body,
