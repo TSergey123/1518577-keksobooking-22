@@ -1,6 +1,6 @@
 import { sendData, getData } from './fetch.js';
 import { showSuccessMessage, showErrorMessage } from './message.js';
-import { resetMainMarker, setAddress, reRenderMarkers, removeMarkers, renderMap } from './map.js';
+import { resetMainMarker, setAddress, reRenderMarkers, removeMarkers, renderMap, initMap } from './map.js';
 import { preview, previewBlockImage } from './image-validation.js';
 
 const MAX_PRICE_VALUE = 1000000;
@@ -157,7 +157,7 @@ const setUserFormSubmit = () => {
       renderMap(offer);
 
       initMap(offer),
-        reRenderMarkers(offer);
+      reRenderMarkers(offer);
     },
     );
   });

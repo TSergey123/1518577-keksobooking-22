@@ -2,6 +2,7 @@ import { createSimilarPopup } from './popup.js';
 import { address, activateForm, resetForm, resetPhotos } from './form.js';
 import { getData } from './fetch.js';
 import { onTypeChange } from './form.js';
+import { showAlert} from './util.js';
 
 const TOKYO_LAT = 35.712977129360546;
 const TOKYO_LNG = 139.7540842153831;
@@ -15,10 +16,10 @@ const createMarker = (lat, lng, draggable, icon) => {
     lat,
     lng,
   },
-    {
-      draggable,
-      icon,
-    })
+  {
+    draggable,
+    icon,
+  })
 }
 
 const createPin = (lat, lng) => {
@@ -100,11 +101,11 @@ const resetPage = () => {
     onTypeChange();
     getData((offer) => {
       initMap(offer),
-        reRenderMarkers(offer);
+      reRenderMarkers(offer);
     },
-      () => {
-        showAlert('Данные не найдены');
-      },
+    () => {
+      showAlert('Данные не найдены');
+    },
     );
   });
 }
