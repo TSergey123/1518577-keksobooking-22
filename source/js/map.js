@@ -1,7 +1,6 @@
 import { createSimilarPopup } from './popup.js';
-import { address, activateForm, resetForm, resetPhotos } from './form.js';
+import { address, activateForm, resetForm, resetPhotos, onTypeChange } from './form.js';
 import { getData } from './fetch.js';
-import { onTypeChange } from './form.js';
 import { showAlert} from './util.js';
 
 const TOKYO_LAT = 35.712977129360546;
@@ -92,8 +91,8 @@ const reRenderMarkers = (offer) => {
   removeMarkers();
   renderMap(offer);
 }
-const resetPage = () => {
-  resetFormButton.addEventListener('click', () => {
+  resetFormButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
     resetForm();
     resetMainMarker();
     resetPhotos();
@@ -108,8 +107,5 @@ const resetPage = () => {
     },
     );
   });
-}
-resetPage();
-
 
 export { initMap, resetMainMarker, setAddress, reRenderMarkers, renderMap, map, removeMarkers };
