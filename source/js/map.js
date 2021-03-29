@@ -91,21 +91,21 @@ const reRenderMarkers = (offer) => {
   removeMarkers();
   renderMap(offer);
 }
-  resetFormButton.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    resetForm();
-    resetMainMarker();
-    resetPhotos();
-    removeMarkers();
-    onTypeChange();
-    getData((offer) => {
-      initMap(offer),
-      reRenderMarkers(offer);
-    },
-    () => {
-      showAlert('Данные не найдены');
-    },
-    );
-  });
+resetFormButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  resetForm();
+  resetMainMarker();
+  resetPhotos();
+  removeMarkers();
+  onTypeChange();
+  getData((offer) => {
+    initMap(offer),
+    reRenderMarkers(offer);
+  },
+  () => {
+    showAlert('Данные не найдены');
+  },
+  );
+});
 
 export { initMap, resetMainMarker, setAddress, reRenderMarkers, renderMap, map, removeMarkers };
